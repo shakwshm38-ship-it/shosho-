@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أغلى شيخة ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a0011 0%, #330022 50%, #1a0011 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* تأثير القلوب المتحركة في الخلفية */
+        .hearts-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 77, 136, 0.3);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            background: rgba(30, 0, 20, 0.75);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 77, 136, 0.3);
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 0, 102, 0.2);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        h1 {
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 2.2rem;
+            color: #ff4d88;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255, 77, 136, 0.5);
+            line-height: 1.4;
+        }
+
+        .poem-line {
+            font-size: 1.3rem;
+            margin: 12px 0;
+            color: #ffe6f0;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: showLine 0.8s forwards;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes showLine {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff1a75, #ff4d88);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 5px 20px rgba(255, 26, 117, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(255, 26, 117, 0.6);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-no {
+            background: linear-gradient(45deg, #444, #666);
+            box-shadow: 0 5px 20px rgba(100, 100, 100, 0.4);
+        }
+        .btn-no:hover {
+            box-shadow: 0 8px 25px rgba(150, 150, 150, 0.6);
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: rgba(20, 0, 15, 0.8);
+            border: 2px solid rgba(255, 77, 136, 0.4);
+            border-radius: 15px;
+            padding: 15px;
+            color: #fff;
+            font-size: 1.1rem;
+            resize: none;
+            margin-top: 20px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #ff1a75;
+            box-shadow: 0 0 10px rgba(255, 26, 117, 0.3);
+        }
+
+        .hearts-decoration {
+            font-size: 1.8rem;
+            margin-top: 15px;
+            letter-spacing: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الخلفية المتحركة -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- الشاشة الأولى: الترحيب -->
+    <div class="container active" id="screen1">
+        <h1 id="typingTitle"></h1>
+        <button class="btn" onclick="goToPoem()">التالي ❤️</button>
+    </div>
+
+    <!-- الشاشة الثانية: الأبيات -->
+    <div class="container" id="screen2">
+        <div id="poemContainer"></div>
+        <div class="btn-group">
+            <button class="btn" onclick="handleChoice('رضيت ❤️')">رضيت ❤️</button>
+            <button class="btn btn-no" onclick="handleChoice('ما رضيت 😢')">ما رضيت 😢</button>
+        </div>
+    </div>
+
+    <!-- الشاشة الثالثة: كتابة رسالة -->
+    <div class="container" id="screen3">
+        <h1>اكتبي لي رسالة من قلبك... 💌</h1>
+        <textarea id="userMessage" placeholder="اكتبي هنا ما يدور في خاطرك..."></textarea>
+        <button class="btn" onclick="sendFinalMessage()">إرسال الرسالة 🚀</button>
+    </div>
+
+    <script>
+        // إعداد الويب هوك الخاص بديسكورد
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1569368931469369454/K-N4Xvub3xlkZesJDzf6HVVHeOwIXYgPo_iatlXiwboGbQwcP2eGZwwA7wTTqidpP2FO";
+
+        // تأثير القلوب المتطايرة في الخلفية
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            document.getElementById('heartsBg').appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }
+        setInterval(createHeart, 400);
+
+        // كتابة عنوان الترحيب حرف بحرف
+        const titleText = "هلا و غلا ب احلي شيخه في الدينا كلها ❤️";
+        let i = 0;
+        function typeWriter() {
+            if (i < titleText.length) {
+                document.getElementById("typingTitle").innerHTML += titleText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            }
+        }
+        window.onload = typeWriter;
+
+        // الأبيات الشعرية مرتبة سطراً بسطر
+        const poemLines = [
+            "شيخة يا بعد هالناس ويا زين عيونك",
+            "والله لو أملك عمر ثاني أعيشه لعيونك",
+            "شيخة يا جعل السعادة تجيك وأنا يكفيني من هالدنيا رضاك",
+            "شيخة عسى ربي يخليك لي دوم ما أبي من الدنيا سوى ضحكة عيونك",
+            "يا شيخة انتي ضحكتي وسط الأحزان وانتي الأمل لا ضاق صدري وحال",
+            "يا شيخة ما أبي من هالدنيا كثير أبيك تضحكين وكل عمري بخير",
+            "✨💖✨"
+        ];
+
+        function goToPoem() {
+            document.getElementById('screen1').classList.remove('active');
+            document.getElementById('screen2').classList.add('active');
+            
+            const container = document.getElementById('poemContainer');
+            container.innerHTML = '';
+            
+            poemLines.forEach((line, index) => {
+                const div = document.createElement('div');
+                div.className = 'poem-line';
+                div.style.animationDelay = (index * 0.7) + 's';
+                div.innerText = line;
+                container.appendChild(div);
+            });
+        }
+
+        let selectedChoice = '';
+
+        function sendToDiscord(content) {
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: content })
+            }).catch(err => console.error('Error:', err));
+        }
+
+        function handleChoice(choice) {
+            selectedChoice = choice;
+            // إرسال الإشعار فوراً لديسكورد بالخيار الذي اخترته
+            sendToDiscord(`🔔 **اختيار شيخة الجديد:** ${choice}`);
+
+            // الانتقال لشاشة إرسال الرسالة
+            document.getElementById('screen2').classList.remove('active');
+            document.getElementById('screen3').classList.add('active');
+        }
+
+        function sendFinalMessage() {
+            const msg = document.getElementById('userMessage').value;
+            if (msg.trim() !== "") {
+                sendToDiscord(`💌 **رسالة من شيخة (اختارت: ${selectedChoice}):**\n> ${msg}`);
+                alert('تم ارسال رسالتك بنجاح ❤️');
+            } else {
+                sendToDiscord(`💌 **رسالة من شيخة (اختارت: ${selectedChoice}):**\n> (لم تكتب شيئاً، ولكنها زارت الصفحة ❤️)`);
+                alert('شكراً لكِ ❤️');
+            }
+            document.body.innerHTML = `<div style="text-align:center; color:#ff4d88; font-size:2.5rem; font-family:'Reem Kufi'; margin-top:20vh;">أحبك يا أحلى شيخة في الدنيا ❤️✨</div>`;
+        }
+    </script>
+</body>
+</html>
